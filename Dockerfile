@@ -6,13 +6,6 @@ WORKDIR $PARSE_HOME
 
 RUN npm install
 
-ENV TINI_VERSION v0.9.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /
-RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 0527A9B7 && \
-    gpg --verify /tini.asc && \
-    chmod a+x /tini
-
 ENV PORT 4040
 EXPOSE $PORT
 
@@ -34,5 +27,5 @@ RUN apt-get update && \
     rm -fr /var/lib/apt/lists/*
 
 ADD docker-entrypoint.sh /
-ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["npm", "run", "dashboard"]

@@ -16,13 +16,13 @@ Parse Dashboard is standalone dashboard for managing your Parse apps. You can us
 ## Getting Started With Docker
 
 ```sh
-docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -p 4040:4040 yongjhih/parse-dashboard
+docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -e SERVER_URL={http://localhost:1337/parse} -p 4040:4040 yongjhih/parse-dashboard
 ```
 
 or
 ```sh
 wget https://github.com/yongjhih/docker-parse-dashboard/raw/master/docker-compose.yml
-APP_ID={appId} MASTER_KEY={masterKey} docker-compose up -d
+APP_ID={appId} MASTER_KEY={masterKey} SERVER_URL={http://localhost:1337/parse} docker-compose up -d
 ```
 
 ## Getting Started

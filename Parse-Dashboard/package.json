@@ -1,0 +1,51 @@
+{
+  "name": "parse-dashboard-example",
+  "version": "0.0.1",
+  "description": "A dashboard for managing your Parse apps",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yongjhih/docker-parse-dashboard"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "~5.8.25",
+    "basic-auth": "^1.0.3",
+    "express": "^4.13.4",
+    "history": "~1.9.1",
+    "immutable": "~3.7.5",
+    "json-file-plus": "^3.2.0",
+    "marked": "^0.3.5",
+    "parse": "1.6.14",
+    "parse-dashboard": "~0.0.1",
+    "prismjs": "~1.2.0",
+    "react": "^0.14.0",
+    "react-dnd": "~2.0.2",
+    "react-dnd-html5-backend": "~2.0.0",
+    "react-dom": "^0.14.0",
+    "react-router": "1.0.0-rc1"
+  },
+  "devDependencies": {
+    "babel-core": "~5.8.12",
+    "babel-loader": "~5.3.0",
+    "babel-plugin-remove-proptypes": "~1.0.0",
+    "css-loader": "~0.18.0",
+    "http-server": "~0.8.5",
+    "immutable-devtools": "~0.0.4",
+    "jest-cli": "^0.7.1",
+    "js-beautify": "~1.5.0",
+    "node-sass": "~3.3.2",
+    "react-addons-test-utils": "^0.14.2",
+    "sass-loader": "~2.0.1",
+    "style-loader": "~0.12.3",
+    "svg-prep": "~1.0.0",
+    "transform-jest-deps": "^2.1.0",
+    "webpack": "~1.12.0"
+  },
+  "scripts": {
+    "dashboard": "node ./Parse-Dashboard/index.js & webpack --config build.config.js --progress --watch",
+  },
+  "engines": {
+    "node": ">=4.3"
+  }
+}

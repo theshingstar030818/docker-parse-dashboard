@@ -1,6 +1,6 @@
 FROM node:latest
 
-ENV PARSE_HOME /parse-dashboard
+ENV PARSE_HOME /src
 ADD . $PARSE_HOME
 WORKDIR $PARSE_HOME
 

@@ -112,16 +112,16 @@ The deployed dashboard detects if you are using a secure connection. If you are 
 
 ## Run with Docker
 
-It is easy to use it with Docker. First build the image:
+It is easy to use it with Docker. First pull the image:
 
 ```
-docker build -t parse-dashboard .
+docker pull yongjhih/parse-dashboard
 ```
 
 Run the image with your ``config.json`` mounted as a volume
 
 ```
-docker run -d -p 8080:4040 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json parse-dashboard
+docker run -d -p 8080:4040 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json yongjhih/parse-dashboard
 ```
 
 By default, the container will start the app at port 4040 inside the container. However, you can run custom command as well (see ``Deploying in production`` for custom setup).
@@ -129,7 +129,7 @@ By default, the container will start the app at port 4040 inside the container. 
 In this example, we want to run the application in production mode at port 80 of the host machine.
 
 ```
-docker run -d -p 80:8080 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json parse-dashboard --port 8080
+docker run -d -p 80:8080 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json yongjhih/parse-dashboard --port 8080
 ```
 
 If you are not familiar with Docker, ``--port 8080`` with be passed in as argument to the entrypoint to form the full command ``npm start -- --port 8080``. The application will start at port 8080 inside the container and port ``8080`` will be mounted to port ``80`` on your host machine.

@@ -105,6 +105,7 @@ p.then(config => {
 
   // Serve public files.
   app.use(express.static(path.join(__dirname,'public')));
+  app.enable('trust proxy');
 
   // Serve the configuration.
   app.get('/parse-dashboard-config.json', function(req, res) {

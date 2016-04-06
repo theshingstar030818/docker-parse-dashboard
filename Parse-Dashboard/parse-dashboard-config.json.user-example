@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "serverURL": "$SERVER_URL",
+      "appId": "$APP_ID",
+      "masterKey": "$MASTER_KEY",
+      "appName": "$APP_NAME"
+    }
+  ],
+  "users": [
+    {
+      "user":"$USER1",
+      "pass":"$USER1_PASSWORD"
+    }
+  ]
+}

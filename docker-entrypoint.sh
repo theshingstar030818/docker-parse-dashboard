@@ -16,7 +16,11 @@ else
     export MASTER_KEY=${MASTER_KEY:-}
     export APP_NAME=${APP_NAME:-My Parse Server App}
 
-    envsubst < "${PARSE_DASHBOARD_CONFIG}.example" > "$PARSE_DASHBOARD_CONFIG"
+    if [ "$USER1" ]; then
+        envsubst < "${PARSE_DASHBOARD_CONFIG}.user-example" > "$PARSE_DASHBOARD_CONFIG"
+    else
+        envsubst < "${PARSE_DASHBOARD_CONFIG}.example" > "$PARSE_DASHBOARD_CONFIG"
+    fi
 
     exec "$@"
 fi

@@ -9,3 +9,8 @@ npm-debug.log
 // vim .swp
 *.swp
 .env
+
+*.pem
+account_key.json
+*.key
+*.crt

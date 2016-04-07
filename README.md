@@ -25,6 +25,28 @@ wget https://github.com/yongjhih/docker-parse-dashboard/raw/master/docker-compos
 APP_ID={appId} MASTER_KEY={masterKey} SERVER_URL={http://localhost:1337/parse} docker-compose up -d
 ```
 
+### Usage of letsencrypt for parse-dashboard with https certificated domain
+
+```sh
+$ git clone https://github.com/yongjhih/docker-parse-server
+$ cd docker-parse-server
+
+$ USER1=yongjhih \ # your username for basic auth
+  USER1_PASSWORD=yongjhih \ # your password for basic auth
+  LETSENCRYPT_EMAIL=yongjhih@example.com \ #your email
+  LETSENCRYPT_HOST=yongjhih.example.com \ # your doamin
+  VIRTUAL_HOST=yongjhih.example.com \ # your doamin
+  APP_ID=myAppId MASTER_KEY=myMasterKey docker-compose -f docker-compose-le.yml up
+```
+
+Open your https://yongjhih.example.com/ url and unblock browser protected scripts, that's it.
+
+BTW, you can remove unused 80 port after volumes/proxy/certs generated:
+
+```sh
+sed -i -- '/- "80:80"/d' docker-compose-le.yml
+```
+
 ## Getting Started
 
 [Node.js](https://nodejs.org) version >= 4.3 is required to run the dashboard. You also need to be using Parse Server version 2.1.4 or higher. Install the dashboard from `npm`.

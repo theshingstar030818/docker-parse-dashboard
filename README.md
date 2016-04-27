@@ -25,7 +25,13 @@ wget https://github.com/yongjhih/docker-parse-dashboard/raw/master/docker-compos
 APP_ID={appId} MASTER_KEY={masterKey} SERVER_URL={http://localhost:1337/parse} docker-compose up -d
 ```
 
-### Usage of letsencrypt for parse-dashboard with https certificated domain
+or specific version 2.0.0:
+
+```sh
+docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -e SERVER_URL={http://localhost:1337/parse} -p 4040:4040 yongjhih/parse-dashboard:2.0.0
+```
+
+## Usage of letsencrypt for parse-dashboard with https certificated domain
 
 ```sh
 $ git clone https://github.com/yongjhih/docker-parse-server
@@ -132,29 +138,13 @@ In order to securely deploy the dashboard without leaking your apps master key, 
 
 The deployed dashboard detects if you are using a secure connection. If you are deploying the dashboard behind a load balancer or proxy that does early SSL termination, then the app won't be able to detect that the connection is secure. In this case, you can start the dashboard with the `--allowInsecureHTTP=1` option. You will then be responsible for ensureing that your proxy or load balancer only allows HTTPS.
 
-## Run with Docker
+## Deploy Docker
 
-It is easy to use it with Docker. First pull the image:
+Getting npm versions of parse-dashboard:
 
+```sh
+docker run -it node npm view parse-dashboard
 ```
-docker pull yongjhih/parse-dashboard
-```
-
-Run the image with your ``config.json`` mounted as a volume
-
-```
-docker run -d -p 8080:4040 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json yongjhih/parse-dashboard
-```
-
-By default, the container will start the app at port 4040 inside the container. However, you can run custom command as well (see ``Deploying in production`` for custom setup).
-
-In this example, we want to run the application in production mode at port 80 of the host machine.
-
-```
-docker run -d -p 80:8080 -v host/path/to/config.json:/src/Parse-Dashboard/parse-dashboard-config.json yongjhih/parse-dashboard --port 8080
-```
-
-If you are not familiar with Docker, ``--port 8080`` with be passed in as argument to the entrypoint to form the full command ``npm start -- --port 8080``. The application will start at port 8080 inside the container and port ``8080`` will be mounted to port ``80`` on your host machine.
 
 ## Contributing
 

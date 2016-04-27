@@ -15,7 +15,7 @@ generate-version() {
 	if [ "$version" == 'master' ]; then
 		echo "latest: ${url}@${commit} ."
 	else
-		echo "${version}: ${url}@${commit} docker/${version}/"
+		echo "${version}: ${url}@${commit} docker/${version}"
 	fi
 }
 

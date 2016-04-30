@@ -40,10 +40,16 @@ wget https://github.com/yongjhih/docker-parse-dashboard/raw/master/docker-compos
 APP_ID={appId} MASTER_KEY={masterKey} SERVER_URL={http://localhost:1337/parse} docker-compose up -d
 ```
 
-or specific version 2.0.0:
+or specific version 1.0.10:
 
 ```sh
-docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -e SERVER_URL={http://localhost:1337/parse} -p 4040:4040 yongjhih/parse-dashboard:2.0.0
+docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -e SERVER_URL={http://localhost:1337/parse} -p 4040:4040 yongjhih/parse-dashboard:1.0.10
+```
+
+or specific dev image for latest commit:
+
+```sh
+docker run -d -e APP_ID={appId} -e MASTER_KEY={masterKey} -e SERVER_URL={http://localhost:1337/parse} -p 4040:4040 yongjhih/parse-dashboard:dev
 ```
 
 ## Usage of letsencrypt for parse-dashboard with https certificated domain

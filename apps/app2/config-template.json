@@ -1,0 +1,7 @@
+{
+    "serverURL": "$APP2_SERVER_URL",
+    "appId": "$APP2_ID",
+    "masterKey": "$APP2_MASTER_KEY",
+    "appName": "$APP2_NAME",
+    "iconName": "$APP2_ICON_NAME"
+}

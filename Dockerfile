@@ -9,6 +9,8 @@ RUN npm install && \
     npm run build && \
     npm cache clear && \
     rm -rf ~/.npm && \
+    apt-get update && \
+    apt-get install -y gettext-base && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PORT 4040
@@ -23,4 +25,6 @@ EXPOSE $PORT
 #ENV PARSE_DASHBOARD_USER_PASSWORD
 #ENV PARSE_DASHBOARD_CONFIG
 
+ADD docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["npm", "run", "dashboard"]

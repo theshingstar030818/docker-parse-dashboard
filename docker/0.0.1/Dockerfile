@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:5
 
 ENV PARSE_DASHBOARD_VERSION 0.0.1
 RUN npm install -g parse-dashboard@${PARSE_DASHBOARD_VERSION}

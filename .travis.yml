@@ -20,5 +20,6 @@ after_script:
 language: node_js
 node_js:
   - "4.3"
-
-# vim:set et ts=2 sw=2:
+  - "4.4"
+  - "5.7"
+  - "6.1"

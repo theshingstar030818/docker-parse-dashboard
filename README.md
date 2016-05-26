@@ -19,6 +19,7 @@ Parse Dashboard is a standalone dashboard for managing your Parse apps. You can 
   * [Configuring Parse Dashboard](#configuring-parse-dashboard)
   * [Managing Multiple Apps](#managing-multiple-apps)
   * [Other Configuration Options](#other-configuration-options)
+* [Running as Express Middleware](#running-as-express-middleware)
 * [Deploying Parse Dashboard](#deploying-parse-dashboard)
   * [Preparing for Deployment](#preparing-for-deployment)
   * [Security Considerations](#security-considerations)
@@ -76,7 +77,7 @@ sed -i -- '/- "80:80"/d' docker-compose-le.yml
 
 # Getting Started
 
-[Node.js](https://nodejs.org) version >= 4.3 is required to run the dashboard. You also need to be using Parse Server version 2.1.4 or higher. 
+[Node.js](https://nodejs.org) version >= 4.3 is required to run the dashboard. You also need to be using Parse Server version 2.1.4 or higher.
 
 # Local Installation
 
@@ -122,7 +123,7 @@ Managing multiple apps from the same dashboard is also possible.  Simply add add
 
 You can manage self-hosted [Parse Server](https://github.com/ParsePlatform/parse-server) apps, *and* apps that are hosted on [Parse.com](http://parse.com/) from the same dashboard. In your config file, you will need to add the `restKey` and `javascriptKey` as well as the other paramaters, which you can find on `dashboard.parse.com`. Set the serverURL to `http://api.parse.com/1`:
 
-```json
+```js
 {
   "apps": [
     {
@@ -146,7 +147,7 @@ You can manage self-hosted [Parse Server](https://github.com/ParsePlatform/parse
 
 ## App Icon Configuration
 
-Parse Dashboard supports adding an optional icon for each app, so you can identify them easier in the list. To do so, you *must* use the configuration file, define an `iconsFolder` in it, and define the `iconName` parameter for each app (including the extension). The path of the `iconsFolder` is relative to the configuration file. To visualize what it means, in the following example `icons` is a directory located under the same directory as the configuration file:
+Parse Dashboard supports adding an optional icon for each app, so you can identify them easier in the list. To do so, you *must* use the configuration file, define an `iconsFolder` in it, and define the `iconName` parameter for each app (including the extension). The path of the `iconsFolder` is relative to the configuration file. If you have installed ParseDashboard globally you need to use the full path as value for the `iconsFolder`. To visualize what it means, in the following example `icons` is a directory located under the same directory as the configuration file:
 
 ```json
 {
@@ -165,9 +166,64 @@ Parse Dashboard supports adding an optional icon for each app, so you can identi
 
 ## Other Configuration Options
 
-You can set `appNameForURL` in the config file for each app to control the url of your app within the dashboard. This can make it easier to use bookmarks or share links on your dashboard. 
+You can set `appNameForURL` in the config file for each app to control the url of your app within the dashboard. This can make it easier to use bookmarks or share links on your dashboard.
 
 To change the app to production, simply set `production` to `true` in your config file. The default value is false if not specified.
+
+# Running as Express Middleware
+
+Instead of starting Parse Dashboard with the CLI, you can also run it as an [express](https://github.com/expressjs/express) middleware.
+
+```
+var express = require('express');
+var ParseDashboard = require('parse-dashboard');
+
+var dashboard = new ParseDashboard({
+  "apps": [
+    {
+      "serverURL": "http://localhost:1337/parse",
+      "appId": "myAppId",
+      "masterKey": "myMasterKey",
+      "appName": "MyApp"
+    }
+  ]
+});
+
+var app = express();
+
+// make the Parse Dashboard available at /dashboard
+app.use('/dashboard', dashboard);
+
+var httpServer = require('http').createServer(app);
+httpServer.listen(4040);
+```
+
+If you want to run both [Parse Server](https://github.com/ParsePlatform/parse-server) and Parse Dashboard on the same server/port, you can run them both as express middleware:
+
+```
+var express = require('express');
+var ParseServer = require('parse-server').ParseServer;
+var ParseDashboard = require('parse-dashboard');
+
+var api = new ParseServer({
+	// Parse Server settings
+});
+
+var dashboard = new ParseDashboard({
+	// Parse Dashboard settings
+});
+
+var app = express();
+
+// make the Parse Server available at /parse
+app.use('/parse', api);
+
+// make the Parse Dashboard available at /dashboard
+app.use('/dashboard', dashboard);
+
+var httpServer = require('http').createServer(app);
+httpServer.listen(4040);
+```
 
 # Deploying Parse Dashboard
 
@@ -176,7 +232,7 @@ To change the app to production, simply set `production` to `true` in your confi
 Make sure the server URLs for your apps can be accessed by your browser. If you are deploying the dashboard, then `localhost` urls will not work.
 
 ## Security Considerations
-In order to securely deploy the dashboard without leaking your apps master key, you will need to use HTTPS and Basic Authentication. 
+In order to securely deploy the dashboard without leaking your apps master key, you will need to use HTTPS and Basic Authentication.
 
 The deployed dashboard detects if you are using a secure connection. If you are deploying the dashboard behind a load balancer or proxy that does early SSL termination, then the app won't be able to detect that the connection is secure. In this case, you can start the dashboard with the `--allowInsecureHTTP=1` option. You will then be responsible for ensureing that your proxy or load balancer only allows HTTPS.
 
